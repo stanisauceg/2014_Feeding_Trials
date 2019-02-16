@@ -1,7 +1,5 @@
-setwd("C:/Users/Michael/Dropbox/2014 feeding trials/")
-getwd()
-
-rm(list=ls())
+library(plyr)
+library(ggplot2)
 
 scaph<-read.csv("scaph-leftover-sizes.csv",header=TRUE)
 head(scaph)
@@ -28,8 +26,6 @@ opscaph<-subset(scaph,scaph$sal.sp=='AMOP')
   boxplot(scaph$size)
   
  # using ggplot2
-
-library(ggplot2)
 qplot(scaph$size, geom="histogram")
 qplot(scaph$size, geom="density")
 m<-ggplot(data=macscaph,aes(macscaph$size))
@@ -82,7 +78,7 @@ class(scaph.cut$treat)
     # create empty data frame
 counts<-data.frame(matrix(data=NA, nrow=(5*5+9),ncol=5))
     # re-label columns
-library(plyr)
+
 counts<-rename(counts,c("X1"="sal.sp","X2"="rep","X3"="sal.treat",
                         "X4"="treat","X5"="scaph_end"))
     # populate with treatment info
