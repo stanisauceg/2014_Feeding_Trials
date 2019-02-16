@@ -143,7 +143,7 @@ rm(data.a)
 str(data)
 
 # convert Round to factor
-data$round<-as.factor(data$round)
+data$round <- as.factor(data$round)
 
 # convert trial.start.date to date format
 data$trial.start.date <- mdy(data$trial.start.date)
@@ -231,10 +231,8 @@ model_stats <- model_stats %>%
 
 model_stats %>% arrange(IDs)
 
-rm(AIC.vals, IDs, n.params, models, response, i,
-  mlm1, mlm2, mlm3, mlm4, mlm5, mlm6, mlm7, mlm8, mlm9, mlm10, 
-               mlm11, mlm12, mlm13, mlm14, mlm15, mlm16, mlm17)
-
+rm(AIC.vals, IDs, n.params, models, response, i, list = ls(pattern = "mlm"))
+  
 ### Univariate (single taxon) preferences --------------------------------
 
 ### Cladocerans
@@ -282,8 +280,7 @@ avPlots(clado.lm3)
 
 
 # cleanup
-rm(clado.lm1,clado.lm2,clado.lm3,clado.lm4,clado.lm5,clado.lm6,clado.lm7,clado.lm8, 
-   clado.models, clado.aicc)
+rm(list = ls(pattern = "clado"))
 
 ### Copepods
 
@@ -316,8 +313,7 @@ summary(cope.lm3)
 plot(cope.lm3)
 avPlots(cope.lm3)
 
-rm(cope.lm1,cope.lm2,cope.lm3,cope.lm4,cope.lm5,
-   cope.lm6,cope.lm7, cope.lm8, cope.models, cope.aicc)
+rm(list = ls(pattern = "cope"))
 
 ## Ostracods
 ostr.lm1<-lm(ostr.e~weight*ostr.start+I(ostr.start^2))
@@ -332,17 +328,16 @@ ostr.lm8 <- lm(ostr.e ~ 1)
 ostr.models<-list(ostr.lm1,ostr.lm2,ostr.lm3,ostr.lm4,ostr.lm5,ostr.lm6,
                   ostr.lm7, ostr.lm8)
 
-(aicc<-unlist(lapply(ostr.models,AICc)))
-which(aicc<=(min(aicc)+2))
-ostr.models[which(aicc<=(min(aicc)+2))]
+(ostr.aicc<-unlist(lapply(ostr.models,AICc)))
+which(ostr.aicc<=(min(ostr.aicc)+2))
+ostr.models[which(ostr.aicc<=(min(ostr.aicc)+2))]
 # most complex model is best
 
 summary(ostr.lm1)
 plot(ostr.lm1)
 avPlots(ostr.lm1)
 
-rm(aicc,ostr.models,ostr.lm1,ostr.lm2,ostr.lm3,ostr.lm4,ostr.lm5,
-   ostr.lm6,ostr.lm7)
+rm(list = ls(pattern = "ostr"))
 
 
 # best single-taxon models
@@ -565,31 +560,31 @@ ostr.3 <- ggplot(data, aes(x = ostr.start, y = weight, color = ostr.e)) +
 
 # prepare each plot as a panel
 
-clado_1<-arrangeGrob(clado.1, bottom = textGrob("(a)", x = unit(0, "npc")
+clado_1 <- arrangeGrob(clado.1, bottom = textGrob("(a)", x = unit(0, "npc")
                                               , y   = unit(2, "npc"), just=c("left","top"),
                                               gp=gpar(col="black", fontsize=11)))
-cope_1<-arrangeGrob(cope.1, bottom = textGrob("(b)", x = unit(0, "npc")
+cope_1 <- arrangeGrob(cope.1, bottom = textGrob("(b)", x = unit(0, "npc")
                                             , y   = unit(2, "npc"), just=c("left","top"),
                                             gp=gpar(col="black", fontsize=11)))
-ostr_1<-arrangeGrob(ostr.1, bottom = textGrob("(c)", x = unit(0, "npc")
+ostr_1 <- arrangeGrob(ostr.1, bottom = textGrob("(c)", x = unit(0, "npc")
                                             , y   = unit(2, "npc"), just=c("left","top"),
                                             gp=gpar(col="black", fontsize=11)))
-clado_2<-arrangeGrob(clado.2, bottom = textGrob("(d)", x = unit(0, "npc")
+clado_2 <- arrangeGrob(clado.2, bottom = textGrob("(d)", x = unit(0, "npc")
                                               , y   = unit(2, "npc"), just=c("left","top"),
                                               gp=gpar(col="black", fontsize=11)))
-cope_2<-arrangeGrob(cope.2, bottom = textGrob("(e)", x = unit(0, "npc")
+cope_2 <- arrangeGrob(cope.2, bottom = textGrob("(e)", x = unit(0, "npc")
                                             , y   = unit(2, "npc"), just=c("left","top"),
                                             gp=gpar(col="black", fontsize=11)))
-ostr_2<-arrangeGrob(ostr.2, bottom = textGrob("(f)", x = unit(0, "npc")
+ostr_2 <- arrangeGrob(ostr.2, bottom = textGrob("(f)", x = unit(0, "npc")
                                             , y   = unit(2, "npc"), just=c("left","top"),
                                             gp=gpar(col="black", fontsize=11)))
-clado_3<-arrangeGrob(clado.3, bottom = textGrob("(g)", x = unit(0, "npc")
+clado_3 <- arrangeGrob(clado.3, bottom = textGrob("(g)", x = unit(0, "npc")
                                                , y   = unit(2, "npc"), just=c("left","top"),
                                                gp=gpar(col="black", fontsize=11)))
-cope_3<-arrangeGrob(cope.3, bottom = textGrob("(h)", x = unit(0, "npc")
+cope_3 <- arrangeGrob(cope.3, bottom = textGrob("(h)", x = unit(0, "npc")
                                              , y   = unit(2, "npc"), just=c("left","top"),
                                              gp=gpar(col="black", fontsize=11)))
-ostr_3<-arrangeGrob(ostr.3, bottom = textGrob("(i)", x = unit(0, "npc")
+ostr_3 <- arrangeGrob(ostr.3, bottom = textGrob("(i)", x = unit(0, "npc")
                                              , y   = unit(2, "npc"), just=c("left","top"),
                                              gp=gpar(col="black", fontsize=11)))
 
